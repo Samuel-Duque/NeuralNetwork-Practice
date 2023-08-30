@@ -1,8 +1,10 @@
 import numpy as np
 import nnfs
+import matplotlib.pyplot as plt
 from nnfs.datasets import vertical_data
 
 nnfs.init()
+plt.ion() 
 
 class Layer_Dense:
     def __init__(self,n_inputs, n_neurons):
@@ -58,6 +60,11 @@ best_dense1_biases = dense1.biases.copy()
 best_dense2_weights = dense2.weights.copy()
 best_dense2_biases = dense2.biases.copy()
 
+
+losses = []
+accuracies = []
+fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+
 for iteration in range(100000):
 
     dense1.weights += 0.05 * np.random.randn(2,3)
@@ -81,9 +88,32 @@ for iteration in range(100000):
         best_dense2_weights = dense2.weights.copy()
         best_dense2_biases = dense2.biases.copy()
         lowest_loss = loss
+        losses.append(loss)
+        accuracies.append(accuracy)
 
     else:
         dense1.weights = best_dense1_weights.copy()
         dense1.biases = best_dense1_biases.copy()
         dense2.weights = best_dense2_weights.copy()
         dense2.biases = best_dense2_biases.copy()
+
+    if iteration % 1000 == 0:
+        axs[0].clear()
+        axs[0].plot(losses, label='Loss')
+        axs[0].set_xlabel('Iteration')
+        axs[0].set_ylabel('Loss')
+        axs[0].legend()
+
+        axs[1].clear()
+        axs[1].plot(accuracies, label='Accuracy', color='orange')
+        axs[1].set_xlabel('Iteration')
+        axs[1].set_ylabel('Accuracy')
+        axs[1].legend()
+
+        plt.tight_layout()
+        plt.draw()
+        plt.pause(0.01)
+
+plt.ioff()  
+
+plt.show()
