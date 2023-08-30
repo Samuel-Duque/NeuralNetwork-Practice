@@ -5,7 +5,7 @@ from nnfs.datasets import vertical_data
 
 nnfs.init()
 plt.ion() 
-
+plt.style.use('dark_background')
 class Layer_Dense:
     def __init__(self,n_inputs, n_neurons):
         self.weights = .10 * np.random.randn(n_inputs, n_neurons)
