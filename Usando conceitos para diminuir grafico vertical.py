@@ -63,9 +63,9 @@ best_dense2_biases = dense2.biases.copy()
 
 losses = []
 accuracies = []
-fig, axs = plt.subplots(1, 2, figsize=(10, 4))
+fig, axs = plt.subplots(1, 3, figsize=(15, 4))
 
-for iteration in range(100000):
+for iteration in range(10000000):
 
     dense1.weights += 0.05 * np.random.randn(2,3)
     dense1.biases += 0.05 * np.random.randn(1,3)
@@ -99,21 +99,26 @@ for iteration in range(100000):
 
     if iteration % 1000 == 0:
         axs[0].clear()
-        axs[0].plot(losses, label='Loss')
-        axs[0].set_xlabel('Iteration')
-        axs[0].set_ylabel('Loss')
-        axs[0].legend()
+        axs[0].scatter(X[:, 0], X[:, 1], c=y, cmap='viridis')
+        axs[0].set_title('Data Visualization')
+        axs[0].set_xlabel('Feature 1')
+        axs[0].set_ylabel('Feature 2')
 
         axs[1].clear()
-        axs[1].plot(accuracies, label='Accuracy', color='orange')
+        axs[1].plot(losses, label='Loss')
         axs[1].set_xlabel('Iteration')
-        axs[1].set_ylabel('Accuracy')
+        axs[1].set_ylabel('Loss')
         axs[1].legend()
+
+        axs[2].clear()
+        axs[2].plot(accuracies, label='Accuracy', color='orange')
+        axs[2].set_xlabel('Iteration')
+        axs[2].set_ylabel('Accuracy')
+        axs[2].legend()
 
         plt.tight_layout()
         plt.draw()
-        plt.pause(0.01)
+        plt.pause(0.01)  
 
 plt.ioff()  
-
 plt.show()
