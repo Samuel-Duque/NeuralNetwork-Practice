@@ -22,7 +22,7 @@ class Activation_Softmax:
         exp_values = np.exp(inputs - np.max(inputs,axis=1,keepdims=True))
         probabilities = exp_values / np.sum(exp_values, axis=1, keepdims=True)
         self.output = probabilities
-
+        
 class Loss:
     def calculate(self, output, y):
         samples_losses = self.forward(output, y)
@@ -50,16 +50,12 @@ activation1 = Actvation_ReLU()
 dense2 = Layer_Dense(3, 3)
 activation2 = Activation_Softmax()
 
-
-
-
 loss_function = Loss_CategoricalCrossEntropy()
 lowest_loss = 99999999
 best_dense1_weights = dense1.weights.copy()
 best_dense1_biases = dense1.biases.copy()
 best_dense2_weights = dense2.weights.copy()
 best_dense2_biases = dense2.biases.copy()
-
 
 losses = []
 accuracies = []
