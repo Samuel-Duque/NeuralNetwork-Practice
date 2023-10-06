@@ -39,7 +39,6 @@ class Loss_CategoricalCrossEntropy(Loss):
         negative_log_likelihoods = -np.log(correct_confidences)
         return negative_log_likelihoods
 
-
 X, y = spiral_data(samples=100, classes=3)
 
 dense1 = Layer_Dense(2,3)
